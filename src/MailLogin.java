@@ -1,14 +1,17 @@
 package src;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class MailLogin {
+import java.util.concurrent.TimeUnit;
+
+public class MailLogin{
 	private WebDriver wd;
 	private String url;
 	private String userName;
@@ -25,7 +28,26 @@ public class MailLogin {
 	@Test
 	public void loginNegative(){
 		wd.get(url);
+
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		wd.findElement(By.xpath(".//button/span[text()='Przejdü do serwisu']")).click();
+		wd.findElement(By.partialLinkText("E-MAIL")).click();
+
 		
+		WebElement loginName=wd.findElement(By.name("login"));
+		loginName.clear();
+		loginName.sendKeys(userName);
+		
+		WebElement loginPass=wd.findElement(By.id("mailFormPassword"));
+		loginPass.clear();
+		loginPass.sendKeys(userPass);
+		wd.findElement(By.xpath(".//input[@value='Zaloguj siÍ']")).click();
+		Assert.assertTrue(wd.getPageSource().contains("Wprowadü poprawny adres e-mail"));
 	}
 	@After
 	public void tearDown(){
