@@ -3,7 +3,9 @@ package src;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MailLogin{
 	private WebDriver wd;
 	private String url;
@@ -25,8 +28,9 @@ public class MailLogin{
 		userName="cokolwiek";
 		userPass="roniezcokolwiek";
 	}
+	
 	@Test
-	public void loginNegative(){
+	public void test1_LoginNegative(){
 		wd.get(url);
 
 		try {
@@ -49,6 +53,21 @@ public class MailLogin{
 		wd.findElement(By.xpath(".//input[@value='Zaloguj siê']")).click();
 		Assert.assertTrue(wd.getPageSource().contains("WprowadŸ poprawny adres e-mail"));
 	}
+
+	@Test
+	public void test2_OpenNews(){
+		// Otworz strone glowna
+		wd.get(url);
+
+		// Otwiera zakladke Wiadomosci( Konsola i w ChroPath wpisujemy xpath ) 
+		// contains - zawiera //a[contains(text(), 'blabla' )] <- zawiera tekst "blabla" w obiekcie a.
+		wd.findElement(By.xpath(".//div[@id='tabMenu']//a[contains(text(),'Wiadomoœci')]")).click();
+
+		boolean wynik = wd.findElement(By.xpath(".//img[@alt='Wiadomoœci']")).isEnabled();
+		
+		Assert.assertTrue(wynik);
+	}
+	
 	@After
 	public void tearDown(){
 		wd.quit();
