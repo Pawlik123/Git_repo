@@ -59,11 +59,35 @@ public class MailLogin{
 		// Otworz strone glowna
 		wd.get(url);
 
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		wd.findElement(By.xpath(".//button/span[text()='Przejdü do serwisu']")).click();
 		// Otwiera zakladke Wiadomosci( Konsola i w ChroPath wpisujemy xpath ) 
 		// contains - zawiera //a[contains(text(), 'blabla' )] <- zawiera tekst "blabla" w obiekcie a.
 		wd.findElement(By.xpath(".//div[@id='tabMenu']//a[contains(text(),'Wiadomoúci')]")).click();
 
 		boolean wynik = wd.findElement(By.xpath(".//img[@alt='Wiadomoúci']")).isEnabled();
+		
+		Assert.assertTrue(wynik);
+	}
+
+	@Test
+	public void test3_OpenSport(){
+		wd.get(url);
+		
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		wd.findElement(By.xpath(".//button/span[text()='Przejdü do serwisu']")).click();
+		wd.findElement(By.xpath(".//div[@id='tabMenu']//a[contains(text(), 'Sport')]")).click();
+		boolean wynik=wd.findElement(By.xpath(".//img[@alt='Sport']")).isEnabled();
 		
 		Assert.assertTrue(wynik);
 	}
