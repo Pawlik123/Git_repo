@@ -92,6 +92,24 @@ public class MailLogin{
 		Assert.assertTrue(wynik);
 	}
 	
+	
+	@Test
+	public void test4_OpenBiznes(){
+		wd.get(url);
+		
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		wd.findElement(By.xpath(".//button/span[text()='Przejdü do serwisu']")).click();
+		wd.findElement(By.xpath(".//div[@id='tabMenu']//a[contains(text(),'Biznes')]")).click();
+		boolean wynik=wd.findElement(By.xpath(".//img[@class='new-menu-logo']")).isEnabled();
+		
+		Assert.assertTrue(wynik);
+	}
+
+	
 	@After
 	public void tearDown(){
 		wd.quit();
