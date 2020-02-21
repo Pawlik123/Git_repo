@@ -31,7 +31,7 @@ public class MailLogin{
 		userName="cokolwiek";
 		userPass="roniezcokolwiek";
 	}
-	/*
+	
 	@Test
 	public void test1_LoginNegative(){
 		wd.get(url);
@@ -111,7 +111,7 @@ public class MailLogin{
 		
 		Assert.assertTrue(wynik);
 	}
-*/
+
 	@Test
 	public void test5_OpenKultura(){
 		wd.get(url);
