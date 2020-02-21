@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,12 +24,14 @@ public class MailLogin{
 	@Before
 	public void setUp(){
 		System.setProperty("webdriver.chrome.driver", "C://chromedriver.exe");
-		wd=new ChromeDriver();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--start-maximized");
+		wd=new ChromeDriver(options);
 		url="https://www.onet.pl/";
 		userName="cokolwiek";
 		userPass="roniezcokolwiek";
 	}
-	
+	/*
 	@Test
 	public void test1_LoginNegative(){
 		wd.get(url);
@@ -108,8 +111,24 @@ public class MailLogin{
 		
 		Assert.assertTrue(wynik);
 	}
+*/
+	@Test
+	public void test5_OpenKultura(){
+		wd.get(url);
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		wd.findElement(By.xpath(".//button/span[text()='Przejdü do serwisu']")).click();
+		wd.findElement(By.xpath(".//div[@id='tabMenu']//a[contains(text(),'Kultura')]")).click();
+		boolean wynik=wd.findElement(By.xpath(".//a[@class='serviceLogo']")).isEnabled();
+		Assert.assertTrue(wynik);
+		wd.findElement(By.xpath(".//a[@data-gtm='menuLevel1-film']")).click();
+		wd.findElement(By.xpath(".//a[@class='serviceLogo']")).isEnabled();
+		Assert.assertTrue(wynik);	
+	}
 
-	
 	@After
 	public void tearDown(){
 		wd.quit();
