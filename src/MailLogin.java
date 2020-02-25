@@ -107,7 +107,7 @@ public class MailLogin{
 		}
 		wd.findElement(By.xpath(".//button/span[text()='Przejdü do serwisu']")).click();
 		wd.findElement(By.xpath(".//div[@id='tabMenu']//a[contains(text(),'Biznes')]")).click();
-		boolean wynik=wd.findElement(By.xpath(".//img[@class='new-menu-logo']")).isEnabled();
+		boolean wynik=wd.findElement(By.xpath(".//div[@class='menuRow']")).isEnabled();
 		
 		Assert.assertTrue(wynik);
 	}
