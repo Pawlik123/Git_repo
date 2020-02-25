@@ -122,12 +122,33 @@ public class MailLogin{
 		}
 		wd.findElement(By.xpath(".//button/span[text()='Przejdü do serwisu']")).click();
 		wd.findElement(By.xpath(".//div[@id='tabMenu']//a[contains(text(),'Kultura')]")).click();
-		boolean wynik=wd.findElement(By.xpath(".//a[@class='serviceLogo']")).isEnabled();
-		Assert.assertTrue(wynik);
+		boolean wynik1=wd.findElement(By.xpath(".//a[@class='serviceLogo']")).isEnabled();
+		Assert.assertTrue(wynik1);
 		wd.findElement(By.xpath(".//a[@data-gtm='menuLevel1-film']")).click();
-		wd.findElement(By.xpath(".//a[@class='serviceLogo']")).isEnabled();
+		boolean wynik=wd.findElement(By.xpath(".//a[@class='serviceLogo']")).isEnabled();
 		Assert.assertTrue(wynik);	
 	}
+	
+	@Test
+	public void test6_OpenStylØycia(){
+		wd.get(url);
+		try{
+			TimeUnit.SECONDS.sleep(10);
+		} catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+		wd.findElement(By.xpath(".//button/span[text()='Przejdü do serwisu']")).click();	
+		wd.findElement(By.xpath(".//div[@id='tabMenu']//a[contains(text(),'Styl øycia')]")).click();
+		boolean wynik=wd.findElement(By.xpath(".//body[@class='lifestyleMainpage']")).isEnabled();
+		Assert.assertTrue(wynik);
+		wd.findElement(By.xpath(".//div[@id='tabMenu']//a[contains(text(),'Moda')]")).click();
+		boolean wynik1= wd.findElement(By.xpath(".//body[@class='lifestyleMainpage']")).isEnabled();
+		Assert.assertTrue(wynik1);
+	}
+		
+		
+		
+		
 
 	@After
 	public void tearDown(){
