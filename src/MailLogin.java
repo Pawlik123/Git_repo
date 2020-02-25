@@ -20,6 +20,7 @@ public class MailLogin{
 	private String url;
 	private String userName;
 	private String userPass;
+	private String szukaj;
 	
 	@Before
 	public void setUp(){
@@ -30,6 +31,7 @@ public class MailLogin{
 		url="https://www.onet.pl/";
 		userName="cokolwiek";
 		userPass="roniezcokolwiek";
+		szukaj="Sport Onet";
 	}
 	
 	@Test
@@ -145,11 +147,23 @@ public class MailLogin{
 		boolean wynik1= wd.findElement(By.xpath(".//body[@class='lifestyleMainpage']")).isEnabled();
 		Assert.assertTrue(wynik1);
 	}
-		
-		
-		
-		
-
+	@Test
+	public void test7_OpenSzukajwWyszukiwarce(){
+		wd.get(url);
+		try{
+			TimeUnit.SECONDS.sleep(10);
+		}catch(InterruptedException e){
+			e.printStackTrace();
+		}
+		wd.findElement(By.xpath(".//button/span[text()='Przejdü do serwisu']")).click();
+		WebElement poleszukaj=wd.findElement(By.id("searchQuery"));
+		poleszukaj.clear();
+		poleszukaj.sendKeys(szukaj);
+		wd.findElement(By.xpath(".//input[@id='searchSubmit']")).click();
+		wd.findElement(By.xpath(".//a[contains(text(), 'Sport -')]")).click();
+		boolean wynik=wd.findElement(By.xpath(".//img[@alt='Sport']")).isEnabled();
+		Assert.assertTrue(wynik);
+	}
 	@After
 	public void tearDown(){
 		wd.quit();
