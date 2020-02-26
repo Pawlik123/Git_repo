@@ -21,6 +21,7 @@ public class MailLogin{
 	private String userName;
 	private String userPass;
 	private String szukaj;
+	private String czegoszukasz;
 	
 	@Before
 	public void setUp(){
@@ -32,8 +33,8 @@ public class MailLogin{
 		userName="cokolwiek";
 		userPass="roniezcokolwiek";
 		szukaj="Sport Onet";
+		czegoszukasz="Dzien kobiet";
 	}
-	
 	@Test
 	public void test1_LoginNegative(){
 		wd.get(url);
@@ -163,6 +164,25 @@ public class MailLogin{
 		wd.findElement(By.xpath(".//a[contains(text(), 'Sport -')]")).click();
 		boolean wynik=wd.findElement(By.xpath(".//img[@alt='Sport']")).isEnabled();
 		Assert.assertTrue(wynik);
+	}
+	
+	@Test
+	public void test8_Open_Zakupy(){
+		wd.get(url);
+		try{
+			TimeUnit.SECONDS.sleep(10);
+		}catch(InterruptedException e){
+			e.printStackTrace();
+		}
+		wd.findElement(By.xpath(".//button/span[text()='Przejdü do serwisu']")).click();
+		wd.findElement(By.xpath(".//span[contains(text(),'Zakupy')]")).click();
+		WebElement poleczegoszukasz=wd.findElement(By.xpath(".//input[@placeholder='czego szukasz?']"));
+		poleczegoszukasz.clear();
+		poleczegoszukasz.sendKeys(czegoszukasz);
+		wd.findElement(By.xpath("."
+				+ "//input[@class='mobile-hidden']")).click();
+		boolean wynik_=wd.findElement(By.xpath(".//h1[@class='filters-header']")).isEnabled();
+		Assert.assertTrue(wynik_);
 	}
 	@After
 	public void tearDown(){
